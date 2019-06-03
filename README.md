@@ -1,1 +1,1 @@
-# TestRail
+# TestRail Plugin
