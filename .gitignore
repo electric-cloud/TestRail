@@ -1,0 +1,13 @@
+!ecpluginbuilder.exe
+ecpluginbuilder
+.idea
+*.iml
+.DS_Store
+/build
+/specs/build
+bin
+/temp
+/.assets
+.gradle/
+spec-report/
+logs/
