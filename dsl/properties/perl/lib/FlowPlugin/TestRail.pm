@@ -18,10 +18,10 @@ use JSON;
 # Service function that is being used to set some metadata for a plugin.
 sub pluginInfo {
     return {
-        pluginName    => '@PLUGIN_KEY@',
-        pluginVersion => '@PLUGIN_VERSION@',
-        configFields  => ['config'],
-        configLocations => ['ec_plugin_cfgs']
+        pluginName      => '@PLUGIN_KEY@',
+        pluginVersion   => '@PLUGIN_VERSION@',
+        configFields    => [ 'config' ],
+        configLocations => [ 'ec_plugin_cfgs' ]
     };
 }
 
@@ -104,7 +104,7 @@ sub getTestCase {
 
     # Saving outcome properties and parameters
     $stepResult->setOutputParameter('caseId', $response->{id});
-    $stepResult->setOutputParameter('response',  encode_json $response);
+    $stepResult->setOutputParameter('response', encode_json $response);
     logInfo("Plan(s) information was saved to properties.");
 
     $stepResult->setJobStepOutcome('success');
