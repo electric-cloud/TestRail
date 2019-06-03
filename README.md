@@ -1,1 +1,3 @@
-# TestRail Plugin
+## TestE2EPlugin
+
+Please fill this readme file with some meaningful information about your plugin.
