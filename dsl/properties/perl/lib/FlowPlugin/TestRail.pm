@@ -124,23 +124,46 @@ sub getTestCase {
 # Add your code into this method and it will be called when step runs
 sub createTestCase {
     my ($pluginObject) = @_;
+
     my $context = $pluginObject->newContext();
     print "Current context is: ", $context->getRunContext(), "\n";
-    my $params = $context->getStepParameters();
+    # my $params = $context->getStepParameters();
+    # print Dumper $params;
+    my FlowPDF $self = shift;
+    my $params = shift;
     print Dumper $params;
+    my FlowPDF::StepResult $stepResult = shift;
+    $self->init($params);
 
-    my $configValues = $context->getConfigValues();
-    print Dumper $configValues;
+    # Setting default parameters
+    $params->{resultFormat} ||= 'json';
+    my $payload = decode_json $params->{json};
+    # if (!exists $payload->{Test}){
+    #
+    # }
+    my $createTestCase = $self->client->post("get_case/$params->{sectionId}", undef, $payload);
+    return unless defined $createTestCase;
+    logInfo("Created case: '$createTestCase->{id}'");
 
-    my $stepResult = $context->newStepResult();
-    print "Created stepresult\n";
-    $stepResult->setJobStepOutcome('warning');
+
+    $stepResult->setOutputParameter('caseId', $createTestCase->{id});
+    $stepResult->setOutputParameter('response', encode_json $createTestCase);
+    logInfo("Plan(s) information was saved to properties.");
+
+    $stepResult->setJobStepOutcome('success');
+    $stepResult->setJobStepSummary('Case created: ' . $createTestCase->{id});
+    $stepResult->setJobSummary("Info about $createTestCase was saved to property(ies)");
+
+    print "Created stepResult\n";
+    $stepResult->setJobStepOutcome('success');
     print "Set stepResult\n";
 
-    $stepResult->setJobSummary("See, this is a whole job summary");
-    $stepResult->setJobStepSummary('And this is a job step summary');
+    $stepResult->setJobSummary("Info about $createTestCase was saved to property(ies)");
+    $stepResult->setJobStepSummary('Case created: ' . $createTestCase->{id});
 
     $stepResult->apply();
+
+
 }
 # Auto-generated method for the procedure Update Test Case/Update Test Case
 # Add your code into this method and it will be called when step runs
