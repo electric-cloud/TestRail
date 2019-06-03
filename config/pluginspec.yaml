@@ -1,12 +1,12 @@
 # This is default sample specification
 # Feel free to change it
 # Call ecpdk showdoc pluginspec to see the list of available fields and their description
-pluginName: TestE2EPlugin
-description: Test E2E description
+pluginName: TestRail
+description: Plugin for TestRail via REST
 version: 1.0.0
-author: Test Pavel Vovk
+author: Pavlo Vovk
 authorUrl: [indefined]
-category: TestE2ECategory
+category: Test
 
 # This is a declaration for the plugin configuration
 configuration:
@@ -55,8 +55,8 @@ configuration:
          value: 2
 
 procedures:
-- name: Get Test As JSON to TestRail
-  description: The procedure take a xml and import it to Test Rail as Test Case
+- name: Get Test Case
+  description: The gettign the Test Case from Test Rail as JSON
   hasConfig: true # configuration field will be generated automatically
   parameters:
   - name: caseId
@@ -65,13 +65,12 @@ procedures:
     required: true
     label: Case Id in the Test Rail
   outputParameters:
-    response: Responce of TestRail
     caseJSON: case as JSON
-    caseId: Id of created/updated test case on TestRail
+    caseId: Id of created/updated test case on TestRail, if exist
   # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
   shell: ec-perl
-- name: Import Test As JSON to TestRail
-  description: The procedure take a xml and import it to Test Rail as Test Case
+- name: Create Test Case
+  description: The procedure take a JSON and import it to Test Rail as Test Case
   hasConfig: true # configuration field will be generated automatically
   parameters:
   - name: json
@@ -79,13 +78,25 @@ procedures:
     type: entry
     required: true
     label: JSON Value
+  outputParameters:
+    caseId: Id of created/updated test case on TestRail
+  # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
+  shell: ec-perl
+- name: Update Test Case
+  description: The procedure take a JSON and update Case in Test Rail
+  hasConfig: true # configuration field will be generated automatically
+  parameters:
   - name: caseId
     documentation: Target Case Id in the Test Rail for Update or Create
     type: entry
     required: true
     label: Case Id in the Test Rail
+  - name: json
+    documentation: JSON of the Test Case
+    type: entry
+    required: true
+    label: JSON Value
   outputParameters:
-    response: Responce of TestRail
     caseId: Id of created/updated test case on TestRail
   # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
   shell: ec-perl
