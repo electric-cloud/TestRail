@@ -1,3 +1,6 @@
 ## TestE2EPlugin
-
-Please fill this readme file with some meaningful information about your plugin.
+The Test plugin created during the Testing of the Framewotk 
+Just 3 Procedures created:
+- Get Case
+- Create Case
+- Update Case
