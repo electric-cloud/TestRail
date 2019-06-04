@@ -14,7 +14,7 @@
     <label>Configuration Name:</label>
   </formElement>
   <formElement>
-    <type>entry</type>
+    <type>textarea</type>
     <property>json</property>
     <required>1</required>
     <documentation>JSON of the Test Case</documentation>

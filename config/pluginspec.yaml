@@ -75,7 +75,7 @@ procedures:
   parameters:
   - name: json
     documentation: JSON of the Test Case
-    type: entry
+    type: textarea
     required: true
     label: JSON Value
   - name: sectionId
@@ -99,7 +99,7 @@ procedures:
     label: Case Id in the Test Rail
   - name: json
     documentation: JSON of the Test Case
-    type: entry
+    type: textarea
     required: true
     label: JSON Value
   outputParameters:
