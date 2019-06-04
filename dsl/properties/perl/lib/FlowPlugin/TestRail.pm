@@ -1,3 +1,4 @@
+package FlowPlugin::TestRail;
 use strict;
 use warnings;
 use base qw/FlowPDF/;
@@ -25,8 +26,6 @@ sub pluginInfo {
     };
 }
 
-# Auto-generated method for the procedure Get Test As JSON to TestRail/Get Test As JSON to TestRail
-# Add your code into this method and it will be called when step runs
 sub init {
     my ($self, $params) = @_;
 
@@ -57,7 +56,7 @@ sub client {return shift->{restClient}};
 TODO: Documentation for this Procedure
 
 =cut
-# Auto-generated method for the procedure Get Test Case/Get Test Case
+# Auto-generated method for the procedure Get Test Case
 # Add your code into this method and it will be called when step runs
 sub getTestCase {
     my ($pluginObject) = @_;
@@ -138,6 +137,7 @@ sub createTestCase {
     #
     # }
     my $createTestCase = $self->client->post("add_case/$params->{sectionId}", undef, $payload);
+
     return unless defined $createTestCase;
     logInfo("Test Case: #'$createTestCase->{id}' created under section: #$params->{sectionId}");
 

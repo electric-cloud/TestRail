@@ -14,8 +14,6 @@ def pluginDir = getProperty("/projects/$pluginName/pluginDir").value
 
 //List of procedure steps to which the plugin configuration credentials need to be attached
 def stepsWithAttachedCredentials = [
-[procedureName: "Get Test As JSON to TestRail", stepName: "Get Test As JSON to TestRail"],
-[procedureName: "Import Test As JSON to TestRail", stepName: "Import Test As JSON to TestRail"],
 [procedureName: "Get Test Case", stepName: "Get Test Case"],
 [procedureName: "Create Test Case", stepName: "Create Test Case"],
 [procedureName: "Update Test Case", stepName: "Update Test Case"],
