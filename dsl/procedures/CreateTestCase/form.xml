@@ -20,4 +20,11 @@
     <documentation>JSON of the Test Case</documentation>
     <label>JSON Value:</label>
   </formElement>
+  <formElement>
+    <type>entry</type>
+    <property>sectionId</property>
+    <required>1</required>
+    <documentation>Id of section in Test Rail for adding the Test Case</documentation>
+    <label>Section Id:</label>
+  </formElement>
 </editor>

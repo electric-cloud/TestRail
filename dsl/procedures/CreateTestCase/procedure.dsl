@@ -11,7 +11,10 @@ procedure 'Create Test Case', description: 'The procedure take a JSON and import
 
     formalOutputParameter 'caseId',
         description: 'Id of created/updated test case on TestRail'
-// === procedure_autogen ends, checksum: e3b2899556193aee979634242e96e973 ===
+
+    formalOutputParameter 'caseJSON',
+        description: 'case as JSON'
+// === procedure_autogen ends, checksum: 337fdf6b1a0c1e14dc9b5036e55b030e ===
 // Do not update the code above the line
 // procedure properties declaration can be placed in here, like
 // property 'property name', value: "value"

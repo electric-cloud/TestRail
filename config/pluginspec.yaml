@@ -79,12 +79,13 @@ procedures:
     required: true
     label: JSON Value
   - name: sectionId
-    documentation: Id of section in Test Rail for add test
+    documentation: Id of section in Test Rail for adding the Test Case
     type: entry
     required: true
     label: Section Id
   outputParameters:
     caseId: Id of created/updated test case on TestRail
+    caseJSON: case as JSON
   # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
   shell: ec-perl
 - name: Update Test Case
@@ -103,5 +104,6 @@ procedures:
     label: JSON Value
   outputParameters:
     caseId: Id of created/updated test case on TestRail
+    caseJSON: case as JSON
   # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
   shell: ec-perl

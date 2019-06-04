@@ -37,7 +37,7 @@ sub init {
     $self->{_config} = $configValues;
 
     $self->{restClient} = FlowPlugin::REST->new($configValues, {
-        APIBase     => '/api/v2/',
+        APIBase     => '/index.php?/api/v2/',
         contentType => 'application/json',
         errorHook   => {
             default => sub {
@@ -90,7 +90,7 @@ sub getTestCase {
     });
 
     return unless defined $response;
-    logInfo("Found case: '$response->{id}'");
+    logInfo("Found Test Case: '$response->{id}'");
 
     # my $infoToSave = $response;
 
@@ -103,20 +103,16 @@ sub getTestCase {
     # );
 
     # Saving outcome properties and parameters
-    $stepResult->setOutputParameter('caseId', $response->{id});
-    $stepResult->setOutputParameter('response', encode_json $response);
-    logInfo("Plan(s) information was saved to properties.");
-
-    $stepResult->setJobStepOutcome('success');
-    $stepResult->setJobStepSummary('Case found: ' . $response->{id});
-    $stepResult->setJobSummary("Info about $caseId was saved to property(ies)");
-
     print "Created stepResult\n";
-    $stepResult->setJobStepOutcome('success');
-    print "Set stepResult\n";
+    $stepResult->setOutputParameter('caseId', $response->{id});
+    $stepResult->setOutputParameter('caseJSON', encode_json $response);
+    logInfo("Test Case information was saved to properties.");
 
-    $stepResult->setJobSummary("Info about $caseId was saved to property(ies)");
-    $stepResult->setJobStepSummary('Case found: ' . $response->{id});
+    $stepResult->setJobStepOutcome('success');
+    $stepResult->setJobStepSummary('Case found: #' . $response->{id});
+    $stepResult->setJobSummary("Info about Test Case: #$caseId has been saved to property(ies)");
+
+    print "Set stepResult\n";
 
     $stepResult->apply();
 }
@@ -141,49 +137,60 @@ sub createTestCase {
     # if (!exists $payload->{Test}){
     #
     # }
-    my $createTestCase = $self->client->post("get_case/$params->{sectionId}", undef, $payload);
+    my $createTestCase = $self->client->post("add_case/$params->{sectionId}", undef, $payload);
     return unless defined $createTestCase;
-    logInfo("Created case: '$createTestCase->{id}'");
+    logInfo("Test Case: #'$createTestCase->{id}' created under section: #$params->{sectionId}");
 
+    print "Created stepResult\n";
 
     $stepResult->setOutputParameter('caseId', $createTestCase->{id});
-    $stepResult->setOutputParameter('response', encode_json $createTestCase);
+    $stepResult->setOutputParameter('caseJSON', encode_json $createTestCase);
     logInfo("Plan(s) information was saved to properties.");
 
     $stepResult->setJobStepOutcome('success');
-    $stepResult->setJobStepSummary('Case created: ' . $createTestCase->{id});
-    $stepResult->setJobSummary("Info about $createTestCase was saved to property(ies)");
+    $stepResult->setJobStepSummary("Test Case: #$createTestCase->{id} created under section: #$params->{sectionId}");
+    $stepResult->setJobSummary("Info about Test Case: #$createTestCase has been saved to property(ies)");
 
-    print "Created stepResult\n";
-    $stepResult->setJobStepOutcome('success');
     print "Set stepResult\n";
 
-    $stepResult->setJobSummary("Info about $createTestCase was saved to property(ies)");
-    $stepResult->setJobStepSummary('Case created: ' . $createTestCase->{id});
-
     $stepResult->apply();
-
-
 }
+
 # Auto-generated method for the procedure Update Test Case/Update Test Case
 # Add your code into this method and it will be called when step runs
 sub updateTestCase {
     my ($pluginObject) = @_;
+
     my $context = $pluginObject->newContext();
     print "Current context is: ", $context->getRunContext(), "\n";
-    my $params = $context->getStepParameters();
+    # my $params = $context->getStepParameters();
+    # print Dumper $params;
+    my FlowPDF $self = shift;
+    my $params = shift;
     print Dumper $params;
+    my FlowPDF::StepResult $stepResult = shift;
+    $self->init($params);
 
-    my $configValues = $context->getConfigValues();
-    print Dumper $configValues;
+    # Setting default parameters
+    $params->{resultFormat} ||= 'json';
+    my $payload = decode_json $params->{json};
+    # if (!exists $payload->{Test}){
+    #
+    # }
+    my $createTestCase = $self->client->post("update_case/$params->{caseId}", undef, $payload);
+    return unless defined $createTestCase;
+    logInfo("Created case: '$createTestCase->{id}'");
 
-    my $stepResult = $context->newStepResult();
-    print "Created stepresult\n";
-    $stepResult->setJobStepOutcome('warning');
+    print "Created stepResult\n";
+    $stepResult->setOutputParameter('caseId', $createTestCase->{id});
+    $stepResult->setOutputParameter('caseJSON', encode_json $createTestCase);
+    logInfo("Test Case: #'$createTestCase->{id}' updated");
+
+    $stepResult->setJobStepOutcome('success');
+    $stepResult->setJobStepSummary("Test Case: #$createTestCase->{id} updated");
+    $stepResult->setJobSummary("Info about Test Case: #$createTestCase->{id} has been saved to property(ies)");
+
     print "Set stepResult\n";
-
-    $stepResult->setJobSummary("See, this is a whole job summary");
-    $stepResult->setJobStepSummary('And this is a job step summary');
 
     $stepResult->apply();
 }
