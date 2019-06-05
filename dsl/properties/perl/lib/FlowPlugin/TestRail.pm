@@ -51,9 +51,9 @@ sub config {return shift->{_config}};
 #@returns FlowPlugin::REST
 sub client {return shift->{restClient}};
 
-=head2 getTestAsJSONToTestRail
+=head2 getTestCase
 
-TODO: Documentation for this Procedure
+Documentation for getTestCase
 
 =cut
 # Auto-generated method for the procedure Get Test Case
@@ -115,6 +115,13 @@ sub getTestCase {
 
     $stepResult->apply();
 }
+
+=head2 getTestCase
+
+Documentation for createTestCase
+
+=cut
+
 # Auto-generated method for the procedure Create Test Case/Create Test Case
 # Add your code into this method and it will be called when step runs
 sub createTestCase {
@@ -155,6 +162,12 @@ sub createTestCase {
 
     $stepResult->apply();
 }
+
+=head2 getTestCase
+
+Documentation for updateTestCase
+
+=cut
 
 # Auto-generated method for the procedure Update Test Case/Update Test Case
 # Add your code into this method and it will be called when step runs
