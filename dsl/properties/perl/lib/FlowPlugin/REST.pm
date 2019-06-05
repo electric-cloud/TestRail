@@ -32,11 +32,11 @@ sub new {
 
     # TODO: read auth type and the credential for ir
     my $authType = 'basic';
-    my $credentialName = 'credential';
+    my $credentialName = 'basic_credential';
 
     my $credential;
-    if ($config->isParameterExists('credential')) {
-        $credential = $config->getParameter('credential');
+    if ($config->isParameterExists($credentialName)) {
+        $credential = $config->getParameter($credentialName);
     }
     else {
         $logger->info("No credential '$credentialName' found in config. Assuming anonymous access");
