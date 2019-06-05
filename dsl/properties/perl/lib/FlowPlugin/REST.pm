@@ -191,7 +191,9 @@ sub buildRequest {
     my $requestPath = $self->buildRequestPath($path);
 
     my HTTP::Request $request = $rest->newRequest($method => $requestPath);
-    $self->authorizeRequest($request);
+
+    # commented by Authorization Verification
+    # $self->authorizeRequest($request);
 
     # Query parameters
     if (defined $queryParams && ref $queryParams eq 'HASH') {
