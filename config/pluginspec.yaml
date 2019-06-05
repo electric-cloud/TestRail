@@ -28,12 +28,20 @@ configuration:
      type: entry
      required: true
      documentation: Third-party endpoint to connect to.
-   - name: credential
+   - name: basic_credential
      type: credential
      label: Credential
      userNameLabel: Username
      required: true
      passwordLabel: Password
+   - name: authScheme
+     label: Authentication Type
+     type: select
+     required: 1
+     value: basic
+     options:
+     - name: HTTP Basic Authentication
+       value: basic
    - name: checkConnection
      label: Check Connection?
      type: checkbox
