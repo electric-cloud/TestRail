@@ -30,12 +30,8 @@ sub init {
     my ($self, $params) = @_;
 
     my FlowPDF::Context $context = $self->getContext();
-    my $configValues = $context->getConfigValues($params->{config});
 
-    # Will add
-    $self->{_config} = $configValues;
-
-    $self->{restClient} = FlowPlugin::REST->new($configValues, {
+    my $rest = FlowPlugin::REST->new($context, {
         APIBase     => '/index.php?/api/v2/',
         contentType => 'application/json',
         errorHook   => {
@@ -44,6 +40,10 @@ sub init {
             }
         }
     });
+    # Test Rail requires Content-Type header to be present even if no content was provided
+    $rest->{headers}{'Content-Type'} = 'application/json';
+
+    $self->{restClient} = $rest;
 }
 
 sub config {return shift->{_config}};
@@ -70,13 +70,15 @@ sub getTestCase {
     # print Dumper $params;
     my FlowPDF::StepResult $stepResult = shift;
     $self->init($params);
+    logInfo("Init complete");
 
     # Setting default parameters
     $params->{resultFormat} ||= 'json';
-    $params->{resultPropertySheet} ||= '/myJob/caseId/';
+    $params->{resultPropertySheet} ||= '/myJob/caseId';
 
-    my $caseId = "$params->{caseId}";
+    my $caseId = $params->{caseId};
 
+    logInfo("requesting info");
     my $response = $self->client->get("get_case/$caseId", undef, undef, {
         errorHook => {
             400 => sub {
