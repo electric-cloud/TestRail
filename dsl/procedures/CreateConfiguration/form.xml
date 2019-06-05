@@ -4,7 +4,7 @@
 -->
 
 <editor>
-  <help>/commander/pages/@PLUGIN_NAME@/help?s=Administration&amp;amp;ss=Plugins#CreateConfiguration</help>
+  <help>/commander/pages/@PLUGIN_NAME@/help?s=Administration&amp;ss=Plugins#CreateConfiguration</help>
   <formElement>
     <type>entry</type>
     <property>config</property>
@@ -30,12 +30,23 @@
   </formElement>
   <formElement>
     <type>credential</type>
-    <property>credential</property>
+    <property>basic_credential</property>
     <required>1</required>
     <label>Credential:</label>
     <attachedAsParameterToStep>createConfiguration</attachedAsParameterToStep>
     <passwordLabel>Password</passwordLabel>
     <userNameLabel>Username</userNameLabel>
+  </formElement>
+  <formElement>
+    <type>select</type>
+    <property>authScheme</property>
+    <required>1</required>
+    <label>Authentication Type:</label>
+    <option>
+      <name>HTTP Basic Authentication</name>
+      <value>basic</value>
+    </option>
+    <value>basic</value>
   </formElement>
   <formElement>
     <type>checkbox</type>

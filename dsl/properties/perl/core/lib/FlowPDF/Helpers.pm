@@ -250,7 +250,7 @@ sub bailOut {
 sub inArray {
     my ($elem, @array) = @_;
 
-    if (!defined $elem || !@array) {
+    if (!defined $elem) {
         croak "This function takes as parameter an element to search and non-empty array.";
     }
     for my $e (@array) {
