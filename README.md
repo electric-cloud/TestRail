@@ -10,3 +10,6 @@ perl
 - Update Case by REST
 
 ## CLI Procedures
+- Get Case by CLI
+- Create Case by CLI
+- Update Case by CLI
