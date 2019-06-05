@@ -67,7 +67,7 @@ sub getTestCase {
     # print Dumper $params;
     my FlowPDF $self = shift;
     my $params = shift;
-    print Dumper $params;
+    # print Dumper $params;
     my FlowPDF::StepResult $stepResult = shift;
     $self->init($params);
 
@@ -133,7 +133,7 @@ sub createTestCase {
     # print Dumper $params;
     my FlowPDF $self = shift;
     my $params = shift;
-    print Dumper $params;
+    # print Dumper $params;
     my FlowPDF::StepResult $stepResult = shift;
     $self->init($params);
 
@@ -180,7 +180,7 @@ sub updateTestCase {
     # print Dumper $params;
     my FlowPDF $self = shift;
     my $params = shift;
-    print Dumper $params;
+    # print Dumper $params;
     my FlowPDF::StepResult $stepResult = shift;
     $self->init($params);
 
