@@ -30,12 +30,8 @@ sub init {
     my ($self, $params) = @_;
 
     my FlowPDF::Context $context = $self->getContext();
-    my $configValues = $context->getConfigValues($params->{config});
 
-    # Will add
-    $self->{_config} = $configValues;
-
-    $self->{restClient} = FlowPlugin::REST->new($configValues, {
+    my $rest = FlowPlugin::REST->new($context, {
         APIBase     => '/index.php?/api/v2/',
         contentType => 'application/json',
         errorHook   => {
@@ -44,6 +40,10 @@ sub init {
             }
         }
     });
+    # Test Rail requires Content-Type header to be present even if no content was provided
+    $rest->{headers}{'Content-Type'} = 'application/json';
+
+    $self->{restClient} = $rest;
 }
 
 sub config {return shift->{_config}};
@@ -67,16 +67,18 @@ sub getTestCase {
     # print Dumper $params;
     my FlowPDF $self = shift;
     my $params = shift;
-    print Dumper $params;
+    # print Dumper $params;
     my FlowPDF::StepResult $stepResult = shift;
     $self->init($params);
+    logInfo("Init complete");
 
     # Setting default parameters
     $params->{resultFormat} ||= 'json';
-    $params->{resultPropertySheet} ||= '/myJob/caseId/';
+    $params->{resultPropertySheet} ||= '/myJob/caseId';
 
-    my $caseId = "$params->{caseId}";
+    my $caseId = $params->{caseId};
 
+    logInfo("requesting info");
     my $response = $self->client->get("get_case/$caseId", undef, undef, {
         errorHook => {
             400 => sub {
@@ -133,7 +135,7 @@ sub createTestCase {
     # print Dumper $params;
     my FlowPDF $self = shift;
     my $params = shift;
-    print Dumper $params;
+    # print Dumper $params;
     my FlowPDF::StepResult $stepResult = shift;
     $self->init($params);
 
@@ -156,7 +158,7 @@ sub createTestCase {
 
     $stepResult->setJobStepOutcome('success');
     $stepResult->setJobStepSummary("Test Case: #$createTestCase->{id} created under section: #$params->{sectionId}");
-    $stepResult->setJobSummary("Info about Test Case: #$createTestCase has been saved to property(ies)");
+    $stepResult->setJobSummary("Info about Test Case: #$createTestCase->{id} has been saved to property(ies)");
 
     print "Set stepResult\n";
 
@@ -180,7 +182,7 @@ sub updateTestCase {
     # print Dumper $params;
     my FlowPDF $self = shift;
     my $params = shift;
-    print Dumper $params;
+    # print Dumper $params;
     my FlowPDF::StepResult $stepResult = shift;
     $self->init($params);
 
@@ -190,18 +192,18 @@ sub updateTestCase {
     # if (!exists $payload->{Test}){
     #
     # }
-    my $createTestCase = $self->client->post("update_case/$params->{caseId}", undef, $payload);
-    return unless defined $createTestCase;
-    logInfo("Created case: '$createTestCase->{id}'");
+    my $updateTestCase = $self->client->post("update_case/$params->{caseId}", undef, $payload);
+    return unless defined $updateTestCase;
+    logInfo("Created case: '$updateTestCase->{id}'");
 
     print "Created stepResult\n";
-    $stepResult->setOutputParameter('caseId', $createTestCase->{id});
-    $stepResult->setOutputParameter('caseJSON', encode_json $createTestCase);
-    logInfo("Test Case: #'$createTestCase->{id}' updated");
+    $stepResult->setOutputParameter('caseId', $updateTestCase->{id});
+    $stepResult->setOutputParameter('caseJSON', encode_json $updateTestCase);
+    logInfo("Test Case: #'$updateTestCase->{id}' updated");
 
     $stepResult->setJobStepOutcome('success');
-    $stepResult->setJobStepSummary("Test Case: #$createTestCase->{id} updated");
-    $stepResult->setJobSummary("Info about Test Case: #$createTestCase->{id} has been saved to property(ies)");
+    $stepResult->setJobStepSummary("Test Case: #$updateTestCase->{id} updated");
+    $stepResult->setJobSummary("Info about Test Case: #$updateTestCase->{id} has been saved to property(ies)");
 
     print "Set stepResult\n";
 
