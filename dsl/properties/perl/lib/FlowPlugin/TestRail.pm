@@ -158,7 +158,7 @@ sub createTestCase {
 
     $stepResult->setJobStepOutcome('success');
     $stepResult->setJobStepSummary("Test Case: #$createTestCase->{id} created under section: #$params->{sectionId}");
-    $stepResult->setJobSummary("Info about Test Case: #$createTestCase has been saved to property(ies)");
+    $stepResult->setJobSummary("Info about Test Case: #$createTestCase->{id} has been saved to property(ies)");
 
     print "Set stepResult\n";
 
@@ -192,18 +192,18 @@ sub updateTestCase {
     # if (!exists $payload->{Test}){
     #
     # }
-    my $createTestCase = $self->client->post("update_case/$params->{caseId}", undef, $payload);
-    return unless defined $createTestCase;
-    logInfo("Created case: '$createTestCase->{id}'");
+    my $updateTestCase = $self->client->post("update_case/$params->{caseId}", undef, $payload);
+    return unless defined $updateTestCase;
+    logInfo("Created case: '$updateTestCase->{id}'");
 
     print "Created stepResult\n";
-    $stepResult->setOutputParameter('caseId', $createTestCase->{id});
-    $stepResult->setOutputParameter('caseJSON', encode_json $createTestCase);
-    logInfo("Test Case: #'$createTestCase->{id}' updated");
+    $stepResult->setOutputParameter('caseId', $updateTestCase->{id});
+    $stepResult->setOutputParameter('caseJSON', encode_json $updateTestCase);
+    logInfo("Test Case: #'$updateTestCase->{id}' updated");
 
     $stepResult->setJobStepOutcome('success');
-    $stepResult->setJobStepSummary("Test Case: #$createTestCase->{id} updated");
-    $stepResult->setJobSummary("Info about Test Case: #$createTestCase->{id} has been saved to property(ies)");
+    $stepResult->setJobStepSummary("Test Case: #$updateTestCase->{id} updated");
+    $stepResult->setJobSummary("Info about Test Case: #$updateTestCase->{id} has been saved to property(ies)");
 
     print "Set stepResult\n";
 
