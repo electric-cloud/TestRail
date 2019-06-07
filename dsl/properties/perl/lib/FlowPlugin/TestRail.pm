@@ -369,6 +369,22 @@ sub updateTestCaseCLI {
     $stepResult->setJobStepSummary("update test case: $caseId" );
     $stepResult->apply();
 }
+# Auto-generated method for the procedure Create or Update Test Case/Create or Update Test Case
+# Add your code into this method and it will be called when step runs
+sub createOrUpdateTestCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
 ## === step ends ===
 # Please do not remove the marker above, it is used to place new procedures into this file.
 
