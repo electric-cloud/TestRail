@@ -127,12 +127,12 @@ procedures:
     description: some step description
     shell: ec-perl
     actualParameters: {"json": "$[json]", "sectionId": "$[sectionId]"}
-    condition: $[/myParent/outputParameters/caseId] == ""
+    condition: !($[/myParent/outputParameters/caseId])
   - name: Update Test Case
     description: some step description
     shell: ec-perl
     actualParameters: {"json": "$[json]", "caseId": "$[caseId]"}
-    condition: $[/myParent/outputParameters/caseId] != ""
+    condition: $[/myParent/outputParameters/caseId]
   parameters:
   - name: caseId
     documentation: Target Case Id in the Test Rail for Update or Create
