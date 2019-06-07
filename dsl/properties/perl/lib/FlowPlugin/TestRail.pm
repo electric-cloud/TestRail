@@ -228,6 +228,145 @@ sub defaultErrorHandler {
     return;
 }
 
+# Auto-generated method for the procedure Get Test Case CLI/Get Test Case CLI
+# Add your code into this method and it will be called when step runs
+sub getTestCaseCLI {
+    my ($self) = @_;
+
+    my $context = $self->newContext();
+    print "Current context is: ", $context->getRunContext(), "\n";
+    my $params = $context->getStepParameters();
+
+    my $configValues = $context->getConfigValues();
+    my $cred = $configValues->getParameter('basic_credential');
+    my ($username, $password);
+    print "Creds: '$cred'";
+    if ($cred) {
+        $username = $cred->getUserName();
+        $password = $cred->getSecretValue();
+    }
+    my $caseID =  $params->getParameter('caseId')->getValue();
+    my $endpoint = $configValues->getRequiredParameter('endpoint')->getValue();
+    my $cli = FlowPDF::ComponentManager->loadComponent('FlowPDF::Component::CLI', {
+        workingDirectory => $ENV{COMMANDER_WORKSPACE}
+    });
+    my $command = $cli->newCommand('curl');
+    $command->addArguments("-H");
+    $command->addArguments("Content-Type: application/json");
+    $command->addArguments("-u");
+    $command->addArguments("$username:$password");
+    $command->addArguments("$endpoint/index.php?/api/v2/get_case/$caseID");
+
+    my $res = $cli->runCommand($command);
+    print "STDOUT: " . $res->getStdout();
+    print "STDERR: " . $res->getStderr();
+
+    my $resultJSON = $res->getStdout();
+
+    my $stepResult = $context->newStepResult();
+    $stepResult->setOutputParameter('caseId', $caseID);
+    $stepResult->setOutputParameter('caseJSON', $resultJSON );
+    $stepResult->setJobStepSummary("Get test case: $caseID");
+    $stepResult->apply();
+}
+
+
+
+# Auto-generated method for the procedure Create Test Case CLI/Create Test Case CLI
+# Add your code into this method and it will be called when step runs
+sub createTestCaseCLI {
+    my ($self) = @_;
+
+    my $context = $self->newContext();
+    print "Current context is: ", $context->getRunContext(), "\n";
+    my $params = $context->getStepParameters();
+
+    my $configValues = $context->getConfigValues();
+    my $cred = $configValues->getParameter('basic_credential');
+    my ($username, $password);
+    print "Creds: '$cred'";
+    if ($cred) {
+        $username = $cred->getUserName();
+        $password = $cred->getSecretValue();
+    }
+
+    my $json = $params->getParameter('json')->getValue();
+    my $sectionId = $params->getParameter('sectionId')->getValue();
+    my $endpoint = $configValues->getRequiredParameter('endpoint')->getValue();
+    my $cli = FlowPDF::ComponentManager->loadComponent('FlowPDF::Component::CLI', {
+        workingDirectory => $ENV{COMMANDER_WORKSPACE}
+    });
+    my $command = $cli->newCommand('curl');
+    $command->addArguments("-d");
+    $command->addArguments("$json");
+    $command->addArguments("-H");
+    $command->addArguments("Content-Type: application/json");
+    $command->addArguments("-u");
+    $command->addArguments("$username:$password");
+    $command->addArguments("$endpoint/index.php?/api/v2/add_case/$sectionId");
+
+    my $res = $cli->runCommand($command);
+    print "STDOUT: " . $res->getStdout();
+    print "STDERR: " . $res->getStderr();
+
+    my $resultJSON = $res->getStdout();
+    my $decodeJSON = decode_json $resultJSON;
+    my $caseId = $decodeJSON->{id};
+
+    my $stepResult = $context->newStepResult();
+    $stepResult->setOutputParameter('caseId', $caseId);
+    $stepResult->setOutputParameter('caseJSON', $resultJSON );
+    $stepResult->setJobStepSummary("Create test case: $caseId" );
+    $stepResult->apply();
+}
+
+# Auto-generated method for the procedure Update Test Case CLI/Update Test Case CLI
+# Add your code into this method and it will be called when step runs
+sub updateTestCaseCLI {
+    my ($self) = @_;
+
+    my $context = $self->newContext();
+    print "Current context is: ", $context->getRunContext(), "\n";
+    my $params = $context->getStepParameters();
+
+    my $configValues = $context->getConfigValues();
+    my $cred = $configValues->getParameter('basic_credential');
+    my ($username, $password);
+    print "Creds: '$cred'";
+    if ($cred) {
+        $username = $cred->getUserName();
+        $password = $cred->getSecretValue();
+    }
+
+    my $json = $params->getParameter('json')->getValue();
+    my $caseId = $params->getParameter('caseId')->getValue();
+    my $endpoint = $configValues->getRequiredParameter('endpoint')->getValue();
+    my $cli = FlowPDF::ComponentManager->loadComponent('FlowPDF::Component::CLI', {
+        workingDirectory => $ENV{COMMANDER_WORKSPACE}
+    });
+    my $command = $cli->newCommand('curl');
+    $command->addArguments("-d");
+    $command->addArguments("$json");
+    $command->addArguments("-H");
+    $command->addArguments("Content-Type: application/json");
+    $command->addArguments("-u");
+    $command->addArguments("$username:$password");
+    $command->addArguments("$endpoint/index.php?/api/v2/update_case/$caseId");
+
+    my $res = $cli->runCommand($command);
+    print "STDOUT: " . $res->getStdout();
+    print "STDERR: " . $res->getStderr();
+
+    my $resultJSON = $res->getStdout();
+    my $decodeJSON = decode_json $resultJSON;
+    # my $caseId = $decodeJSON->{id};
+
+    my $stepResult = $context->newStepResult();
+    $stepResult->setOutputParameter('caseId', $caseId);
+    $stepResult->setOutputParameter('caseJSON', $resultJSON );
+    $stepResult->setJobStepSummary("update test case: $caseId" );
+    $stepResult->apply();
+}
 ## === step ends ===
 # Please do not remove the marker above, it is used to place new procedures into this file.
 
