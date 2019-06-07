@@ -385,6 +385,246 @@ sub createOrUpdateTestCase {
     $stepResult->setJobStepOutcome('warning');
     $stepResult->setJobSummary("This is a job summary.");
 }
+# Auto-generated method for the procedure CreateOrUpdate  CLI/GetCase
+# Add your code into this method and it will be called when step runs
+sub getCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure CreateOrUpdate  CLI/CreateCase
+# Add your code into this method and it will be called when step runs
+sub createCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure CreateOrUpdate  CLI/UpdateCase
+# Add your code into this method and it will be called when step runs
+sub updateCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure Get Test Case CLI/Get Test Case CLI
+# Add your code into this method and it will be called when step runs
+sub getTestCaseCLIGetTestCaseCLI {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure Create Test Case CLI/Create Test Case CLI
+# Add your code into this method and it will be called when step runs
+sub createTestCaseCLICreateTestCaseCLI {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure Update Test Case CLI/Update Test Case CLI
+# Add your code into this method and it will be called when step runs
+sub updateTestCaseCLIUpdateTestCaseCLI {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure CreateOrUpdate  CLI/Get Test Case CLI
+# Add your code into this method and it will be called when step runs
+sub createOrUpdateCLIGetTestCaseCLI {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure CreateOrUpdate  CLI/Create Test Case CLI
+# Add your code into this method and it will be called when step runs
+sub createOrUpdateCLICreateTestCaseCLI {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure CreateOrUpdate  CLI/Update Test Case CLI
+# Add your code into this method and it will be called when step runs
+sub createOrUpdateCLIUpdateTestCaseCLI {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure Get Test Case/Get Test Case
+# Add your code into this method and it will be called when step runs
+sub getTestCaseGetTestCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure Create Test Case/Create Test Case
+# Add your code into this method and it will be called when step runs
+sub createTestCaseCreateTestCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure Update Test Case/Update Test Case
+# Add your code into this method and it will be called when step runs
+sub updateTestCaseUpdateTestCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure Create Or Update Rest/Get Test Case
+# Add your code into this method and it will be called when step runs
+sub createOrUpdateRestGetTestCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure Create Or Update Rest/Create Test Case
+# Add your code into this method and it will be called when step runs
+sub createOrUpdateRestCreateTestCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
+# Auto-generated method for the procedure Create Or Update Rest/Update Test Case
+# Add your code into this method and it will be called when step runs
+sub createOrUpdateRestUpdateTestCase {
+    my ($pluginObject, $runtimeParameters, $stepResult) = @_;
+
+    my $context = $pluginObject->newContext();
+    logInfo("Current context is: ", $context->getRunContext());
+    my $params = $context->getStepParameters();
+    logInfo("Step parameters are: ", $params);
+
+    my $configValues = $context->getConfigValues();
+    logInfo("Config values are: ", $configValues);
+
+    $stepResult->setJobStepOutcome('warning');
+    $stepResult->setJobSummary("This is a job summary.");
+}
 ## === step ends ===
 # Please do not remove the marker above, it is used to place new procedures into this file.
 

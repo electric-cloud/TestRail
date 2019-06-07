@@ -13,54 +13,54 @@ configuration:
   # Shell to be used for checking connection
   shell: ec-perl
   parameters:
-   - name: config
-     type: entry
-     label: Configuration Name
-     required: true
-     documentation: The name for the created configuration
-   - name: desc
-     type: entry
-     label: Description
-     required: false
-     documentation: Description for the configuration
-   - name: endpoint
-     label: Endpoint
-     type: entry
-     required: true
-     documentation: Third-party endpoint to connect to.
-   - name: basic_credential
-     type: credential
-     label: Credential
-     userNameLabel: Username
-     required: true
-     passwordLabel: Password
-   - name: authScheme
-     label: Authentication Type
-     type: select
-     required: 1
-     value: basic
-     options:
-     - name: HTTP Basic Authentication
-       value: basic
-   - name: checkConnection
-     label: Check Connection?
-     type: checkbox
-     checkedValue: true
-     uncheckedValue: false
-     initiallyChecked: 1
-   - name: debugLevel
-     # This parameter name "debugLevel" is supported by ECPDF Logger out of the box
-     label: Debug Level
-     type: select
-     required: 0
-     value: 1
-     options:
-       - name: Info
-         value: 0
-       - name: Debug
-         value: 1
-       - name: Trace
-         value: 2
+  - name: config
+    type: entry
+    label: Configuration Name
+    required: true
+    documentation: The name for the created configuration
+  - name: desc
+    type: entry
+    label: Description
+    required: false
+    documentation: Description for the configuration
+  - name: endpoint
+    label: Endpoint
+    type: entry
+    required: true
+    documentation: Third-party endpoint to connect to.
+  - name: basic_credential
+    type: credential
+    label: Credential
+    userNameLabel: Username
+    required: true
+    passwordLabel: Password
+  - name: authScheme
+    label: Authentication Type
+    type: select
+    required: 1
+    value: basic
+    options:
+    - name: HTTP Basic Authentication
+      value: basic
+  - name: checkConnection
+    label: Check Connection?
+    type: checkbox
+    checkedValue: true
+    uncheckedValue: false
+    initiallyChecked: 1
+  - name: debugLevel
+    # This parameter name "debugLevel" is supported by ECPDF Logger out of the box
+    label: Debug Level
+    type: select
+    required: 0
+    value: 1
+    options:
+    - name: Info
+      value: 0
+    - name: Debug
+      value: 1
+    - name: Trace
+      value: 2
 
 procedures:
 - name: Get Test Case
@@ -115,8 +115,45 @@ procedures:
     caseJSON: case as JSON
   # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
   shell: ec-perl
-- name: Create or Update Test Case
-  description: The procedure take a JSON and update Case in Test Rail
+- name: Create Or Update Rest
+  description: The getting the Test Case from Test Rail as JSON via CLI
+  hasConfig: true # configuration field will be generated automatically
+  steps:
+  - name: Get Test Case
+    description: some step description
+    shell: ec-perl
+    actualParameters: {"caseId": "$[caseId]"}
+  - name: Create Test Case
+    description: some step description
+    shell: ec-perl
+    actualParameters: {"json": "$[json]", "sectionId": "$[sectionId]"}
+    condition: $[/myParent/outputParameters/caseId] == ""
+  - name: Update Test Case
+    description: some step description
+    shell: ec-perl
+    actualParameters: {"json": "$[json]", "caseId": "$[caseId]"}
+    condition: $[/myParent/outputParameters/caseId] != ""
+  parameters:
+  - name: caseId
+    documentation: Target Case Id in the Test Rail for Update or Create
+    type: entry
+    required: true
+    label: Case Id in the Test Rail
+  - name: json
+    documentation: JSON of the Test Case
+    type: textarea
+    required: true
+    label: JSON Value
+  - name: sectionId
+    documentation: Id of section in Test Rail for adding the Test Case
+    type: entry
+    required: true
+    label: Section Id
+  outputParameters:
+    caseJSON: case as JSON
+    caseId: Id of created/updated test case on TestRail, if exist
+- name: Get Test Case CLI
+  description: The getting the Test Case from Test Rail as JSON via CLI
   hasConfig: true # configuration field will be generated automatically
   parameters:
   - name: caseId
@@ -124,11 +161,39 @@ procedures:
     type: entry
     required: true
     label: Case Id in the Test Rail
+  outputParameters:
+    caseJSON: case as JSON
+    caseId: Id of created/updated test case on TestRail, if exist
+  # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
+  shell: ec-perl
+- name: Create Test Case CLI
+  description: The procedure take a JSON and import it to Test Rail as Test Case via CLI
+  hasConfig: true # configuration field will be generated automatically
+  parameters:
+  - name: json
+    documentation: JSON of the Test Case
+    type: textarea
+    required: true
+    label: JSON Value
   - name: sectionId
-    documentation: Target section Id in the Test Rail for Update or Create
+    documentation: Id of section in Test Rail for adding the Test Case
     type: entry
     required: true
-    label: Section Id in the Test Rail
+    label: Section Id
+  outputParameters:
+    caseId: Id of created/updated test case on TestRail
+    caseJSON: case as JSON
+  # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
+  shell: ec-perl
+- name: Update Test Case CLI
+  description: The procedure take a JSON and update Case in Test Rail via CLI
+  hasConfig: true # configuration field will be generated automatically
+  parameters:
+  - name: caseId
+    documentation: Target Case Id in the Test Rail for Update or Create
+    type: entry
+    required: true
+    label: Case Id in the Test Rail
   - name: json
     documentation: JSON of the Test Case
     type: textarea
@@ -139,55 +204,38 @@ procedures:
     caseJSON: case as JSON
   # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
   shell: ec-perl
-- name: Get Test Case CLI
+- name: CreateOrUpdate  CLI
   description: The getting the Test Case from Test Rail as JSON via CLI
   hasConfig: true # configuration field will be generated automatically
+  steps:
+  - name: Get Test Case CLI
+    description: some step description
+    shell: ec-perl
+    actualParameters: {"caseId": "$[caseId]"}
+  - name: Create Test Case CLI
+    description: some step description
+    shell: ec-perl
+    actualParameters: {"json": "$[json]", "sectionId": "$[sectionId]"}
+  - name: Update Test Case CLI
+    description: some step description
+    shell: ec-perl
+    actualParameters: {"json": "$[json]", "caseId": "$[caseId]"}
   parameters:
-    - name: caseId
-      documentation: Target Case Id in the Test Rail for Update or Create
-      type: entry
-      required: true
-      label: Case Id in the Test Rail
+  - name: caseId
+    documentation: Target Case Id in the Test Rail for Update or Create
+    type: entry
+    required: true
+    label: Case Id in the Test Rail
+  - name: json
+    documentation: JSON of the Test Case
+    type: textarea
+    required: true
+    label: JSON Value
+  - name: sectionId
+    documentation: Id of section in Test Rail for adding the Test Case
+    type: entry
+    required: true
+    label: Section Id
   outputParameters:
     caseJSON: case as JSON
     caseId: Id of created/updated test case on TestRail, if exist
-  # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
-  shell: ec-perl
-- name: Create Test Case CLI
-  description: The procedure take a JSON and import it to Test Rail as Test Case via CLI
-  hasConfig: true # configuration field will be generated automatically
-  parameters:
-    - name: json
-      documentation: JSON of the Test Case
-      type: textarea
-      required: true
-      label: JSON Value
-    - name: sectionId
-      documentation: Id of section in Test Rail for adding the Test Case
-      type: entry
-      required: true
-      label: Section Id
-  outputParameters:
-    caseId: Id of created/updated test case on TestRail
-    caseJSON: case as JSON
-  # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
-  shell: ec-perl
-- name: Update Test Case CLI
-  description: The procedure take a JSON and update Case in Test Rail via CLI
-  hasConfig: true # configuration field will be generated automatically
-  parameters:
-    - name: caseId
-      documentation: Target Case Id in the Test Rail for Update or Create
-      type: entry
-      required: true
-      label: Case Id in the Test Rail
-    - name: json
-      documentation: JSON of the Test Case
-      type: textarea
-      required: true
-      label: JSON Value
-  outputParameters:
-    caseId: Id of created/updated test case on TestRail
-    caseJSON: case as JSON
-  # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
-  shell: ec-perl

@@ -21,6 +21,15 @@ def stepsWithAttachedCredentials = [
 [procedureName: "Create Test Case CLI", stepName: "Create Test Case CLI"],
 [procedureName: "Update Test Case CLI", stepName: "Update Test Case CLI"],
 [procedureName: "Create or Update Test Case", stepName: "Create or Update Test Case"],
+[procedureName: "CreateOrUpdate  CLI", stepName: "GetCase"],
+[procedureName: "CreateOrUpdate  CLI", stepName: "CreateCase"],
+[procedureName: "CreateOrUpdate  CLI", stepName: "UpdateCase"],
+[procedureName: "CreateOrUpdate  CLI", stepName: "Get Test Case CLI"],
+[procedureName: "CreateOrUpdate  CLI", stepName: "Create Test Case CLI"],
+[procedureName: "CreateOrUpdate  CLI", stepName: "Update Test Case CLI"],
+[procedureName: "Create Or Update Rest", stepName: "Get Test Case"],
+[procedureName: "Create Or Update Rest", stepName: "Create Test Case"],
+[procedureName: "Create Or Update Rest", stepName: "Update Test Case"],
 // === steps with credentials ends ===
 // Please do not remove the line above, it marks the place for the new steps
 // The code above will be updated automatically as you add more procedures into your plugin
