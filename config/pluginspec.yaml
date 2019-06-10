@@ -204,6 +204,24 @@ procedures:
     caseJSON: case as JSON
   # Steps are not defined so we assume that this is one-step procedure with a single step named Deploy
   shell: ec-perl
+- name: Test Sub
+  description: The getting the Test Case from Test Rail as JSON via CLI
+  hasConfig: true # configuration field will be generated automatically
+  steps:
+  - name: Get Test Case
+    description: some step description
+    actualParameters: {"caseId": "$[caseId]", "config":"$[config]"}
+    subproject:
+    subprocedure: "Get Test Case"
+  parameters:
+  - name: caseId
+    documentation: Target Case Id in the Test Rail for Update or Create
+    type: entry
+    required: true
+    label: Case Id in the Test Rail
+  outputParameters:
+    caseJSON: case as JSON
+    caseId: Id of created/updated test case on TestRail, if exist
 - name: CreateOrUpdate  CLI
   description: The getting the Test Case from Test Rail as JSON via CLI
   hasConfig: true # configuration field will be generated automatically
